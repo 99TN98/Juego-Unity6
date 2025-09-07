@@ -1,7 +1,7 @@
 using UnityEngine;
 using TMPro;
 
-public class UIReputacionUpdater : MonoBehaviour
+public class ReputacionUpdater : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI textoReputacion;
 

@@ -8,13 +8,14 @@ public class TiendaManager : MonoBehaviour
 
     //----------
     public static event Action<int> OnReputacionCambiada;
+    public static event Action<int> OnMonedasCambiadas;
     //----------
     //Visual
     [SerializeField] private TextMeshProUGUI TextoPancho;
     [SerializeField] private TextMeshProUGUI TextoHelado;
     [SerializeField] private TextMeshProUGUI TextoHamb;
-    [SerializeField] private TextMeshProUGUI TextoMonedas;
-    [SerializeField] private TextMeshProUGUI TextoReputacion;
+    //[SerializeField] private TextMeshProUGUI TextoMonedas;
+    //[SerializeField] private TextMeshProUGUI TextoReputacion;
     private int cantidadPanchos;
     private int cantidadHelados;
     private int cantidadHamb;
@@ -76,6 +77,15 @@ public class TiendaManager : MonoBehaviour
 
         OnReputacionCambiada?.Invoke(cantidadReputacion);
     }
+    private void CambiarMonedas(int cantidad)
+    {
+        cantidadMonedas += cantidad;
+
+        if (cantidadMonedas < 0)
+            cantidadMonedas = 0;
+
+        OnMonedasCambiadas?.Invoke(cantidadMonedas);
+    }
     //----------
     // Update is called once per frame
     void Update()
@@ -89,7 +99,8 @@ public class TiendaManager : MonoBehaviour
        if (cantidadMonedas >= 100 && cantidadReputacion >= 40 && NumeroExpansion == 1)
         {
             Expansion1.SetActive(false);
-            cantidadMonedas -= 100;
+            CambiarMonedas(-100);
+            //cantidadMonedas -= 100;
             Expansion2.SetActive(true);
             BotonHelado.SetActive(true);
             Puesto2.SetActive(false);
@@ -101,7 +112,8 @@ public class TiendaManager : MonoBehaviour
         if (cantidadMonedas >= 250 && cantidadReputacion >= 60 && NumeroExpansion == 2)
         {
             Expansion2.SetActive(false);
-            cantidadMonedas -= 250;
+            CambiarMonedas(-250);
+            //cantidadMonedas -= 250;
             Expansion3.SetActive(true);
             BotonHamb.SetActive(true);
             Puesto3.SetActive(false);
@@ -113,7 +125,8 @@ public class TiendaManager : MonoBehaviour
         if (cantidadMonedas >= 500 && cantidadReputacion >= 80 && NumeroExpansion == 3)
         {
             Expansion3.SetActive(false);
-            cantidadMonedas -= 500;
+            CambiarMonedas(-500);
+            //cantidadMonedas -= 500;
             ActualizarUI();
             NumeroExpansion++;
             Victoria.SetActive(true);
@@ -153,7 +166,8 @@ public class TiendaManager : MonoBehaviour
                 if (cantidadMonedas >= 2)  
                 {
                     cantidadPanchos++;
-                    cantidadMonedas -= 2;
+                    CambiarMonedas(-2);
+                    //cantidadMonedas -= 2;
                     ActualizarUI();  
                 }
                 break;
@@ -162,7 +176,8 @@ public class TiendaManager : MonoBehaviour
                 if (cantidadMonedas >= 3)  
                 {
                     cantidadHelados++;
-                    cantidadMonedas -= 3;
+                    CambiarMonedas(-3);
+                    // cantidadMonedas -= 3;
                     ActualizarUI();  
                 }
                 break;
@@ -171,7 +186,8 @@ public class TiendaManager : MonoBehaviour
                 if (cantidadMonedas >= 5) 
                 {
                     cantidadHamb++;
-                    cantidadMonedas -= 5;
+                    CambiarMonedas(-5);
+                    // cantidadMonedas -= 5;
                     ActualizarUI(); 
                 }
                 break;
@@ -183,8 +199,8 @@ public class TiendaManager : MonoBehaviour
     }
     private void ActualizarUI()
     {
-        TextoMonedas.text = cantidadMonedas.ToString();
-        TextoReputacion.text = cantidadReputacion.ToString() + "/100";
+        //TextoMonedas.text = cantidadMonedas.ToString();
+        //TextoReputacion.text = cantidadReputacion.ToString() + "/100";
         TextoPancho.text = "x " + cantidadPanchos;
         TextoHelado.text = "x " + cantidadHelados;
         TextoHamb.text = "x " + cantidadHamb;
@@ -208,7 +224,8 @@ public class TiendaManager : MonoBehaviour
                 if (cantidadPanchos > 0)
                 { 
                     cantidadPanchos--;
-                    cantidadMonedas += 10;
+                    CambiarMonedas(10);
+                    //cantidadMonedas += 10;
                     //cantidadReputacion += 1;
                     CambiarReputacion(1);
 
@@ -226,7 +243,8 @@ public class TiendaManager : MonoBehaviour
                 if (cantidadHelados > 0)
                 {
                     cantidadHelados--;
-                    cantidadMonedas += 20;
+                    //cantidadMonedas += 20;
+                    CambiarMonedas(20);
                     CambiarReputacion(2);
                     //cantidadReputacion += 2;
                     EstadoComprador = true;
@@ -243,7 +261,8 @@ public class TiendaManager : MonoBehaviour
                 if (cantidadHamb > 0)
                 {
                     cantidadHamb--;
-                    cantidadMonedas += 40;
+                    //cantidadMonedas += 40;
+                    CambiarMonedas(40);
                     CambiarReputacion(3);
                     //cantidadReputacion += 3;
                     EstadoComprador = true;
