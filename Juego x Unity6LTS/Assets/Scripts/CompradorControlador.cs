@@ -68,7 +68,7 @@ public class CompradorControlador : MonoBehaviour
             return;
         }
         puedoComprar = false;
-        int delayCompra = Random.Range(4, 10);
+        int delayCompra = Random.Range(2, 4);
         if (spriteUso != null && spriteComprando != null)
         {
             spriteUso.sprite = spriteComprando;

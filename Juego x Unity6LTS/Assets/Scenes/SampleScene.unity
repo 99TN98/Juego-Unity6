@@ -1473,7 +1473,7 @@ MonoBehaviour:
   iconoEnojado: {fileID: -7790452766141819222, guid: 96ae13b2344502144af3c9db582203cc, type: 3}
   iconoFeliz: {fileID: 7190281888042781801, guid: 4a40903b895c0f141b7a49e408897502, type: 3}
   iconoRenderer: {fileID: 729260580}
-  velocidad: 5
+  velocidad: 10
 --- !u!1 &682663385
 GameObject:
   m_ObjectHideFlags: 0
@@ -1534,7 +1534,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_Sprite: {fileID: -7668832913562187499, guid: 505174096be689c4881ff64ee0a013db, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1622,7 +1622,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 4
   m_Sprite: {fileID: -7668832913562187499, guid: 505174096be689c4881ff64ee0a013db, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1710,7 +1710,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 4
   m_Sprite: {fileID: 3093005505344535008, guid: ab9f6efb57ce78148ad217ba12cdd5c9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1887,7 +1887,6 @@ MonoBehaviour:
   TextoPancho: {fileID: 1171642338}
   TextoHelado: {fileID: 1865106308}
   TextoHamb: {fileID: 1442717744}
-  TextoMonedas: {fileID: 0}
   Expansion1: {fileID: 895077366}
   BotonHelado: {fileID: 1572547498}
   Expansion2: {fileID: 1487595738}
@@ -3291,7 +3290,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_Sprite: {fileID: -7668832913562187499, guid: 505174096be689c4881ff64ee0a013db, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -5415,7 +5414,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 4
   m_Sprite: {fileID: 3093005505344535008, guid: ab9f6efb57ce78148ad217ba12cdd5c9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
