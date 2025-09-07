@@ -1,9 +1,14 @@
 using UnityEngine;
 using TMPro;
+using System;
 
 
 public class TiendaManager : MonoBehaviour
 {
+
+    //----------
+    public static event Action<int> OnReputacionCambiada;
+    //----------
     //Visual
     [SerializeField] private TextMeshProUGUI TextoPancho;
     [SerializeField] private TextMeshProUGUI TextoHelado;
@@ -33,15 +38,16 @@ public class TiendaManager : MonoBehaviour
     [SerializeField] private GameObject Victoria;
     [SerializeField] private GameObject Derrota;
     public bool PausaJuego = false;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    
+
     void Start()
     {
         cantidadPanchos = 5;
         cantidadHelados = 0;
         cantidadHamb = 0;
-        cantidadMonedas = 2500;
+        cantidadMonedas = 250;
         maxReputacion = 100;
-        cantidadReputacion = 1;
+        cantidadReputacion = 50;
         NumeroSeleccion = 0;
         Expansion2.SetActive(false);
         Expansion3.SetActive(false);
@@ -53,7 +59,24 @@ public class TiendaManager : MonoBehaviour
         ActualizarUI();
 
     }
+    //----------
+    private void CambiarReputacion(int cantidad)
+    {
+        cantidadReputacion += cantidad;
 
+        if (cantidadReputacion >= maxReputacion)
+            cantidadReputacion = maxReputacion;
+
+        if (cantidadReputacion <= 0)
+        {
+            cantidadReputacion = 0;
+            Derrota.SetActive(true);
+            PausaJuego = true;
+        }
+
+        OnReputacionCambiada?.Invoke(cantidadReputacion);
+    }
+    //----------
     // Update is called once per frame
     void Update()
     {
@@ -186,12 +209,15 @@ public class TiendaManager : MonoBehaviour
                 { 
                     cantidadPanchos--;
                     cantidadMonedas += 10;
-                    cantidadReputacion += 1;
+                    //cantidadReputacion += 1;
+                    CambiarReputacion(1);
+
                     EstadoComprador = true;
                 }
                 else
                 {
-                    cantidadReputacion--;
+                    CambiarReputacion(-1);
+                    //cantidadReputacion--;
                     EstadoComprador = false;
 }
                 break;
@@ -201,12 +227,14 @@ public class TiendaManager : MonoBehaviour
                 {
                     cantidadHelados--;
                     cantidadMonedas += 20;
-                    cantidadReputacion += 2;
+                    CambiarReputacion(2);
+                    //cantidadReputacion += 2;
                     EstadoComprador = true;
                 }
                 else
                 {
-                    cantidadReputacion--;
+                    CambiarReputacion(-1);
+                    //cantidadReputacion--;
                     EstadoComprador = false;
                 }
                 break;
@@ -216,16 +244,19 @@ public class TiendaManager : MonoBehaviour
                 {
                     cantidadHamb--;
                     cantidadMonedas += 40;
-                    cantidadReputacion += 3;
+                    CambiarReputacion(3);
+                    //cantidadReputacion += 3;
                     EstadoComprador = true;
                 }
                 else
                 {
-                    cantidadReputacion--;
+                    //cantidadReputacion--;
+                    CambiarReputacion(-1);
                     EstadoComprador = false;
                 }
                 break;
         }
+        /*
         if (cantidadReputacion >= maxReputacion)
         {
             cantidadReputacion = 100;
@@ -234,7 +265,7 @@ public class TiendaManager : MonoBehaviour
         {
             Derrota.SetActive(true);
             PausaJuego = true;
-        };
+        };*/
         ActualizarUI();
     }
 
