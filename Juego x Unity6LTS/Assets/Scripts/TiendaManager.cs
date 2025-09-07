@@ -29,21 +29,26 @@ public class TiendaManager : MonoBehaviour
     //Colisiones
     int Comprar = 1;
     public bool EstadoComprador = true;
-
+    //Condicion de victoria y derrota
+    [SerializeField] private GameObject Victoria;
+    [SerializeField] private GameObject Derrota;
+    public bool PausaJuego = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         cantidadPanchos = 5;
         cantidadHelados = 0;
         cantidadHamb = 0;
-        cantidadMonedas = 10000;
+        cantidadMonedas = 2500;
         maxReputacion = 100;
-        cantidadReputacion = 1000;
+        cantidadReputacion = 1;
         NumeroSeleccion = 0;
         Expansion2.SetActive(false);
         Expansion3.SetActive(false);
         BotonHelado.SetActive(false);
         BotonHamb.SetActive(false);
+        Victoria.SetActive(false);
+        Derrota.SetActive(false);
         NumeroExpansion = 1;
         ActualizarUI();
 
@@ -88,6 +93,8 @@ public class TiendaManager : MonoBehaviour
             cantidadMonedas -= 500;
             ActualizarUI();
             NumeroExpansion++;
+            Victoria.SetActive(true);
+            PausaJuego = true;
             return;
         }
        
@@ -176,7 +183,7 @@ public class TiendaManager : MonoBehaviour
         {
             case 1:
                 if (cantidadPanchos > 0)
-                {
+                { 
                     cantidadPanchos--;
                     cantidadMonedas += 10;
                     cantidadReputacion += 1;
@@ -219,6 +226,15 @@ public class TiendaManager : MonoBehaviour
                 }
                 break;
         }
+        if (cantidadReputacion >= maxReputacion)
+        {
+            cantidadReputacion = 100;
+        };
+        if (cantidadReputacion <= 0)
+        {
+            Derrota.SetActive(true);
+            PausaJuego = true;
+        };
         ActualizarUI();
     }
 

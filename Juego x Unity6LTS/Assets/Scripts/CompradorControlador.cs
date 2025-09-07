@@ -44,6 +44,11 @@ public class CompradorControlador : MonoBehaviour
 
     void Update()
     {
+        if (tiendaManager != null && tiendaManager.PausaJuego)
+        {
+
+            return;
+        }
         if (puedoComprar)
         {
             transform.Translate(direccionDestino * velocidad * Time.deltaTime);
@@ -58,6 +63,10 @@ public class CompradorControlador : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (tiendaManager != null && tiendaManager.PausaJuego)
+        {
+            return;
+        }
         puedoComprar = false;
         int delayCompra = Random.Range(4, 10);
         if (spriteUso != null && spriteComprando != null)
@@ -80,6 +89,10 @@ public class CompradorControlador : MonoBehaviour
 
     private void ReiniciarCompra()
     {
+        if (tiendaManager != null && tiendaManager.PausaJuego)
+        {
+            return;
+        }
         Comprar = Random.Range(1, 4);
         if (tiendaManager != null)
         {
