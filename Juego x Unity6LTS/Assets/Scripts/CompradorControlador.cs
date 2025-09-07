@@ -2,13 +2,16 @@ using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class Comprador : MonoBehaviour
+public class CompradorControlador : MonoBehaviour
 {
+    [SerializeField] private TiendaManager tiendaManager;
     [SerializeField] private Transform destino;
     [SerializeField]
     [Range(5, 100)]
-    private int velocidad;
 
+    private int velocidad;
+    private int Seleccion;
+    int Comprar;
     private Vector3 direccionDestino;
     private Vector3 direccionOrigen;
 
@@ -19,6 +22,7 @@ public class Comprador : MonoBehaviour
         direccionDestino = (destino.position - transform.position).normalized;
         direccionOrigen = (transform.position - destino.position).normalized;
         puedoComprar = true;
+        Comprar = Random.Range(1, 4);
     }
 
     void Update()
@@ -34,6 +38,7 @@ public class Comprador : MonoBehaviour
 
     }
 
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         puedoComprar = false;
@@ -43,6 +48,13 @@ public class Comprador : MonoBehaviour
 
     private void ReiniciarCompra()
     {
+        Comprar = Random.Range(1, 4);
+        if (tiendaManager != null)
+        {
+            tiendaManager.RecibirCompra(Comprar);
+        }
         puedoComprar = true;
     }
+
+
 }

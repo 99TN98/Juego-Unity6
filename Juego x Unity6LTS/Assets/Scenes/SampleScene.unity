@@ -282,7 +282,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 830227427}
+      - m_Target: {fileID: 693314438}
         m_TargetAssemblyTypeName: TiendaManager, Assembly-CSharp
         m_MethodName: ComprarExpansion
         m_Mode: 1
@@ -417,7 +417,6 @@ Transform:
   m_LocalScale: {x: 3.5813096, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 830227428}
   - {fileID: 693314435}
   - {fileID: 2034544587}
   - {fileID: 1982997613}
@@ -1072,7 +1071,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 830227427}
+      - m_Target: {fileID: 693314438}
         m_TargetAssemblyTypeName: TiendaManager, Assembly-CSharp
         m_MethodName: ComprarArticulo
         m_Mode: 1
@@ -1380,6 +1379,7 @@ GameObject:
   - component: {fileID: 663316062}
   - component: {fileID: 663316065}
   - component: {fileID: 663316064}
+  - component: {fileID: 663316066}
   m_Layer: 0
   m_Name: Comprador
   m_TagString: Untagged
@@ -1451,7 +1451,7 @@ Transform:
   m_GameObject: {fileID: 663316061}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.8, y: -3.61, z: 0}
+  m_LocalPosition: {x: 6.88, y: -5.97, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1521,6 +1521,21 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.73333335, y: 1.0666667}
   m_Direction: 0
+--- !u!114 &663316066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 663316061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f10f27b5118c9a419b71992d9426c7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tiendaManager: {fileID: 0}
+  destino: {fileID: 693314435}
+  velocidad: 5
 --- !u!1 &682663385
 GameObject:
   m_ObjectHideFlags: 0
@@ -1795,6 +1810,7 @@ GameObject:
   - component: {fileID: 693314435}
   - component: {fileID: 693314437}
   - component: {fileID: 693314436}
+  - component: {fileID: 693314438}
   m_Layer: 0
   m_Name: Tienda
   m_TagString: Untagged
@@ -1918,6 +1934,28 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &693314438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 693314434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ac91edcbf63d274e97f05721eab9c81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TextoPancho: {fileID: 1171642338}
+  TextoHelado: {fileID: 1865106308}
+  TextoHamb: {fileID: 1442717744}
+  TextoMonedas: {fileID: 1746858951}
+  TextoReputacion: {fileID: 999316968}
+  Expansion1: {fileID: 895077366}
+  BotonHelado: {fileID: 1572547498}
+  Expansion2: {fileID: 1487595738}
+  BotonHamb: {fileID: 1172514434}
+  Expansion3: {fileID: 1557208044}
 --- !u!1 &809051449
 GameObject:
   m_ObjectHideFlags: 0
@@ -1993,60 +2031,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 809051449}
   m_CullTransparentMesh: 1
---- !u!1 &830227426
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 830227428}
-  - component: {fileID: 830227427}
-  m_Layer: 0
-  m_Name: TiendaManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &830227427
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 830227426}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ac91edcbf63d274e97f05721eab9c81, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TextoPancho: {fileID: 1171642338}
-  TextoHelado: {fileID: 1865106308}
-  TextoHamb: {fileID: 1442717744}
-  TextoMonedas: {fileID: 1746858951}
-  TextoReputacion: {fileID: 999316968}
-  Expansion1: {fileID: 895077366}
-  BotonHelado: {fileID: 1572547498}
-  Expansion2: {fileID: 1487595738}
-  BotonHamb: {fileID: 1172514434}
-  Expansion3: {fileID: 1557208044}
---- !u!4 &830227428
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 830227426}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.7099411, y: 0.503, z: 0}
-  m_LocalScale: {x: 0.32741824, y: 0.5, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 171811397}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &849648832
 GameObject:
   m_ObjectHideFlags: 0
@@ -3486,7 +3470,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 830227427}
+      - m_Target: {fileID: 693314438}
         m_TargetAssemblyTypeName: TiendaManager, Assembly-CSharp
         m_MethodName: CambiarSeleccion
         m_Mode: 3
@@ -3694,7 +3678,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 830227427}
+      - m_Target: {fileID: 693314438}
         m_TargetAssemblyTypeName: TiendaManager, Assembly-CSharp
         m_MethodName: CambiarSeleccion
         m_Mode: 3
@@ -4585,7 +4569,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 830227427}
+      - m_Target: {fileID: 693314438}
         m_TargetAssemblyTypeName: TiendaManager, Assembly-CSharp
         m_MethodName: CambiarSeleccion
         m_Mode: 3

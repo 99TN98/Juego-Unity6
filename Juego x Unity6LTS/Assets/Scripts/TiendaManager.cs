@@ -24,7 +24,10 @@ public class TiendaManager : MonoBehaviour
     [SerializeField] private GameObject Expansion2;
     [SerializeField] private GameObject BotonHamb;
     [SerializeField] private GameObject Expansion3;
-
+    [SerializeField] private GameObject Puesto2;
+    [SerializeField] private GameObject Puesto3;
+    //Colisiones
+    int Comprar = 1;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -60,6 +63,7 @@ public class TiendaManager : MonoBehaviour
             cantidadMonedas -= 100;
             Expansion2.SetActive(true);
             BotonHelado.SetActive(true);
+            Puesto2.SetActive(false);
             ActualizarUI();
             NumeroExpansion++;
             return;
@@ -71,6 +75,7 @@ public class TiendaManager : MonoBehaviour
             cantidadMonedas -= 250;
             Expansion3.SetActive(true);
             BotonHamb.SetActive(true);
+            Puesto3.SetActive(false);
             ActualizarUI();
             NumeroExpansion++;
             return;
@@ -118,7 +123,6 @@ public class TiendaManager : MonoBehaviour
                 {
                     cantidadPanchos++;
                     cantidadMonedas -= 2;
-                    TextoPancho.text = "x " + cantidadPanchos;
                     ActualizarUI();  
                 }
                 break;
@@ -128,7 +132,6 @@ public class TiendaManager : MonoBehaviour
                 {
                     cantidadHelados++;
                     cantidadMonedas -= 3;
-                    TextoHelado.text = "x " + cantidadHelados;
                     ActualizarUI();  
                 }
                 break;
@@ -138,7 +141,6 @@ public class TiendaManager : MonoBehaviour
                 {
                     cantidadHamb++;
                     cantidadMonedas -= 5;
-                    TextoHamb.text = "x " + cantidadHamb;
                     ActualizarUI(); 
                 }
                 break;
@@ -151,12 +153,66 @@ public class TiendaManager : MonoBehaviour
     private void ActualizarUI()
     {
         TextoMonedas.text = cantidadMonedas.ToString();
-        TextoReputacion.text = cantidadReputacion.ToString() + "/100"; ;
+        TextoReputacion.text = cantidadReputacion.ToString() + "/100";
+        TextoPancho.text = "x " + cantidadPanchos;
+        TextoHelado.text = "x " + cantidadHelados;
+        TextoHamb.text = "x " + cantidadHamb;
     }
     public void CambiarSeleccion (int seleccion)
     {
         NumeroSeleccion = seleccion;
         Debug.Log("Numero seleccionado para compra = " + NumeroSeleccion);
+    }
+
+    public void RecibirCompra(int tipo)
+    {
+        Comprar = tipo;
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        switch (Comprar)
+        {
+            case 1:
+                if (cantidadPanchos > 0)
+                {
+                    cantidadPanchos--;
+                    cantidadMonedas += 10;
+                    cantidadReputacion += 1;
+                }
+                else
+                {
+                    cantidadReputacion--;
+                }
+                break;
+
+            case 2:
+                if (cantidadHelados > 0)
+                {
+                    cantidadHelados--;
+                    cantidadMonedas += 20;
+                    cantidadReputacion += 2;
+                }
+                else
+                {
+                    cantidadReputacion--;
+                }
+                break;
+
+            case 3:
+                if (cantidadHamb > 0)
+                {
+                    cantidadHamb--;
+                    cantidadMonedas += 40;
+                    cantidadReputacion += 3;
+                }
+                else
+                {
+                    cantidadReputacion--;
+                }
+                break;
+        }
+        ActualizarUI();
     }
 
 
