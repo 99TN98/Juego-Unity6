@@ -28,6 +28,7 @@ public class TiendaManager : MonoBehaviour
     [SerializeField] private GameObject Puesto3;
     //Colisiones
     int Comprar = 1;
+    public bool EstadoComprador = true;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -179,11 +180,13 @@ public class TiendaManager : MonoBehaviour
                     cantidadPanchos--;
                     cantidadMonedas += 10;
                     cantidadReputacion += 1;
+                    EstadoComprador = true;
                 }
                 else
                 {
                     cantidadReputacion--;
-                }
+                    EstadoComprador = false;
+}
                 break;
 
             case 2:
@@ -192,10 +195,12 @@ public class TiendaManager : MonoBehaviour
                     cantidadHelados--;
                     cantidadMonedas += 20;
                     cantidadReputacion += 2;
+                    EstadoComprador = true;
                 }
                 else
                 {
                     cantidadReputacion--;
+                    EstadoComprador = false;
                 }
                 break;
 
@@ -205,10 +210,12 @@ public class TiendaManager : MonoBehaviour
                     cantidadHamb--;
                     cantidadMonedas += 40;
                     cantidadReputacion += 3;
+                    EstadoComprador = true;
                 }
                 else
                 {
                     cantidadReputacion--;
+                    EstadoComprador = false;
                 }
                 break;
         }
