@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
@@ -24,6 +26,9 @@ public class TiendaManager : MonoBehaviour
     private int maxReputacion;
     private int NumeroSeleccion;
     private int NumeroExpansion;
+    //Expansion 2.0
+    [SerializeField] private List<Expansion> listaDeExpansiones; // Se ve en el Inspector
+    private Queue<Expansion> expansiones = new Queue<Expansion>();
     //Expansion
     [SerializeField] private GameObject Expansion1;
     [SerializeField] private GameObject BotonHelado;
@@ -47,8 +52,10 @@ public class TiendaManager : MonoBehaviour
         cantidadHelados = 0;
         cantidadHamb = 0;
         cantidadMonedas = 250;
+
         maxReputacion = 100;
         cantidadReputacion = 50;
+
         NumeroSeleccion = 0;
         Expansion2.SetActive(false);
         Expansion3.SetActive(false);
@@ -58,8 +65,50 @@ public class TiendaManager : MonoBehaviour
         Derrota.SetActive(false);
         NumeroExpansion = 1;
         ActualizarUI();
+        foreach (Expansion e in listaDeExpansiones)
+        {
+            expansiones.Enqueue(e);
+        }
 
     }
+
+    public void ComprarExpansion()
+    {
+        if (expansiones.Count == 0) return;
+
+        Expansion actual = expansiones.Dequeue(); // Saca la expansion actual
+
+        if (cantidadMonedas >= actual.CostoMonedas && cantidadReputacion >= actual.CostoReputacion)
+        {
+            cantidadMonedas -= actual.CostoMonedas;
+
+            if (actual.ObjetoExpansion != null)
+                actual.ObjetoExpansion.SetActive(false); // Desactivás expansion comprada
+
+            if (actual.BotonProducto != null)
+                actual.BotonProducto.SetActive(true); // Activa el boton del producto comprado
+
+            // Activa la siguiente cola si hay
+            if (expansiones.Count > 0)
+            {
+                Expansion siguiente = expansiones.Peek();
+
+                if (siguiente.ObjetoExpansion != null)
+                    siguiente.ObjetoExpansion.SetActive(true);  // Activa la siguiente expansion
+            }
+            else
+            {
+                if (Victoria != null)
+                {
+                    Victoria.SetActive(true);
+                    PausaJuego = true;
+                }
+            }
+
+            ActualizarUI();
+        }
+    }
+
     //----------
     private void CambiarReputacion(int cantidad)
     {
@@ -93,7 +142,8 @@ public class TiendaManager : MonoBehaviour
 
     }
 
-    public void ComprarExpansion()
+    /*----------------
+     public void ComprarExpansion()
     {
        //Expansion 1 Helado
        if (cantidadMonedas >= 100 && cantidadReputacion >= 40 && NumeroExpansion == 1)
@@ -134,7 +184,9 @@ public class TiendaManager : MonoBehaviour
             return;
         }
        
-    }
+    }*/
+    //-----------------
+
  /*   void Update() 
     {
         if (NumeroSeleccion == 1 && cantidadMonedas >= 2)
