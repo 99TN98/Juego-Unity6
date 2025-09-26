@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ad527691ac126944919385440c29b78, type: 3}
+  m_Name: PerfilJugador
+  m_EditorClassIdentifier: 
+  cantidadMonedas: 250
+  cantidadReputacion: 48
+  cantidadPanchos: 0
+  costoPanchosCompra: 2
+  costoPanchosVenta: 10
+  cantidadHelados: 0
+  costoHeladosCompra: 3
+  costoHeladosVenta: 15
+  cantidadHamb: 0
+  costoHambCompra: 5
+  costoHambVenta: 40
+  costosExpansionesMonedas: 64000000fa000000f4010000
+  costosExpansionesReputacion: 280000003c00000050000000
+  ReputacionPerdida: 1
+  ReputacionGanada: 5
+  velocidad: 10

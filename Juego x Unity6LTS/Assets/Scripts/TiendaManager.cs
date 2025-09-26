@@ -7,7 +7,8 @@ using System;
 
 public class TiendaManager : MonoBehaviour
 {
-
+    [SerializeField]
+    private PerfilJugador perfilJugador;
     //----------
     public static event Action<int> OnReputacionCambiada;
     public static event Action<int> OnMonedasCambiadas;
@@ -18,11 +19,11 @@ public class TiendaManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI TextoHamb;
     //[SerializeField] private TextMeshProUGUI TextoMonedas;
     //[SerializeField] private TextMeshProUGUI TextoReputacion;
-    private int cantidadPanchos;
-    private int cantidadHelados;
-    private int cantidadHamb;
-    private int cantidadMonedas;
-    private int cantidadReputacion;
+    //private int cantidadPanchos;
+    //private int cantidadHelados;
+    //rivate int cantidadHamb;
+    //private int cantidadMonedas;
+    //private int cantidadReputacion;
     private int maxReputacion;
     private int NumeroSeleccion;
     private int NumeroExpansion;
@@ -50,14 +51,14 @@ public class TiendaManager : MonoBehaviour
 
     void Start()
     {
-        cantidadPanchos = 5;
-        cantidadHelados = 0;
-        cantidadHamb = 0;
+
+        //cantidadPanchos = 5;
+        //cantidadHelados = 0;
+        //cantidadHamb = 0;
         //cantidadMonedas = 250;
-        cantidadMonedas = 1250;
         maxReputacion = 100;
         //cantidadReputacion = 50;
-        cantidadReputacion = 90;
+        //cantidadReputacion = 90;
         NumeroSeleccion = 0;
         Expansion2.SetActive(false);
         Expansion3.SetActive(false);
@@ -76,6 +77,9 @@ public class TiendaManager : MonoBehaviour
             var expansion = listaDeExpansiones[i];
             var texto = textosCostosExpansiones[i];
 
+            expansion.CostoMonedas = perfilJugador.costosExpansionesMonedas[i];
+            expansion.CostoReputacion = perfilJugador.costosExpansionesReputacion[i];
+
             texto.text = $"x{expansion.CostoReputacion}     {expansion.CostoMonedas}x";
         }
 
@@ -87,9 +91,9 @@ public class TiendaManager : MonoBehaviour
 
         Expansion actual = expansiones.Dequeue(); // Saca la expansion actual
 
-        if (cantidadMonedas >= actual.CostoMonedas && cantidadReputacion >= actual.CostoReputacion)
+        if (perfilJugador.cantidadMonedas >= actual.CostoMonedas && perfilJugador.cantidadReputacion >= actual.CostoReputacion)
         {
-            cantidadMonedas -= actual.CostoMonedas;
+            perfilJugador.cantidadMonedas -= actual.CostoMonedas;
 
             if (actual.ObjetoExpansion != null)
                 actual.ObjetoExpansion.SetActive(false); // Desactivás expansion comprada
@@ -121,29 +125,29 @@ public class TiendaManager : MonoBehaviour
     //----------
     private void CambiarReputacion(int cantidad)
     {
-        cantidadReputacion += cantidad;
+        perfilJugador.cantidadReputacion += cantidad;
 
-        if (cantidadReputacion >= maxReputacion)
-            cantidadReputacion = maxReputacion;
+        if (perfilJugador.cantidadReputacion >= maxReputacion)
+            perfilJugador.cantidadReputacion = maxReputacion;
 
-        if (cantidadReputacion <= 0)
+        if (perfilJugador.cantidadReputacion <= 0)
         {
-            cantidadReputacion = 0;
+            perfilJugador.cantidadReputacion = 0;
             Derrota.SetActive(true);
             PausaJuego = true;
         }
 
-        OnReputacionCambiada?.Invoke(cantidadReputacion);
+        OnReputacionCambiada?.Invoke(perfilJugador.cantidadReputacion);
 
     }
     private void CambiarMonedas(int cantidad)
     {
-        cantidadMonedas += cantidad;
+        perfilJugador.cantidadMonedas += cantidad;
 
-        if (cantidadMonedas < 0)
-            cantidadMonedas = 0;
+        if (perfilJugador.cantidadMonedas < 0)
+            perfilJugador.cantidadMonedas = 0;
 
-        OnMonedasCambiadas?.Invoke(cantidadMonedas);
+        OnMonedasCambiadas?.Invoke(perfilJugador.cantidadMonedas);
     }
     //----------
     // Update is called once per frame
@@ -225,30 +229,32 @@ public class TiendaManager : MonoBehaviour
         switch (NumeroSeleccion)
         {
             case 1:  // Panchos
-                if (cantidadMonedas >= 2)  
+                if (perfilJugador.cantidadMonedas >= perfilJugador.costoPanchosCompra)  
                 {
-                    cantidadPanchos++;
-                    CambiarMonedas(-2);
+                    perfilJugador.cantidadPanchos++;
+                    CambiarMonedas(-perfilJugador.costoPanchosCompra);
+
+                    //CambiarMonedas(-2);
                     //cantidadMonedas -= 2;
                     ActualizarUI();  
                 }
                 break;
 
             case 2:  // Helados
-                if (cantidadMonedas >= 3)  
+                if (perfilJugador.cantidadMonedas >= perfilJugador.costoHeladosCompra)  
                 {
-                    cantidadHelados++;
-                    CambiarMonedas(-3);
+                    perfilJugador.cantidadHelados++;
+                    CambiarMonedas(-perfilJugador.costoHeladosCompra);
                     // cantidadMonedas -= 3;
                     ActualizarUI();  
                 }
                 break;
 
             case 3:  // Hamb
-                if (cantidadMonedas >= 5) 
+                if (perfilJugador.cantidadMonedas >= perfilJugador.costoHambCompra) 
                 {
-                    cantidadHamb++;
-                    CambiarMonedas(-5);
+                    perfilJugador.cantidadHamb++;
+                    CambiarMonedas(perfilJugador.costoHambCompra);
                     // cantidadMonedas -= 5;
                     ActualizarUI(); 
                 }
@@ -263,11 +269,11 @@ public class TiendaManager : MonoBehaviour
     {
         //TextoMonedas.text = cantidadMonedas.ToString();
         //TextoReputacion.text = cantidadReputacion.ToString() + "/100";
-        TextoPancho.text = "x " + cantidadPanchos;
-        TextoHelado.text = "x " + cantidadHelados;
-        TextoHamb.text = "x " + cantidadHamb;
-        OnReputacionCambiada?.Invoke(cantidadReputacion);
-        OnMonedasCambiadas?.Invoke(cantidadMonedas);
+        TextoPancho.text = "x " + perfilJugador.cantidadPanchos;
+        TextoHelado.text = "x " + perfilJugador.cantidadHelados;
+        TextoHamb.text = "x " + perfilJugador.cantidadHamb;
+        OnReputacionCambiada?.Invoke(perfilJugador.cantidadReputacion);
+        OnMonedasCambiadas?.Invoke(perfilJugador.cantidadMonedas);
     }
     public void CambiarSeleccion (int seleccion)
     {
@@ -285,56 +291,57 @@ public class TiendaManager : MonoBehaviour
         switch (Comprar)
         {
             case 1:
-                if (cantidadPanchos > 0)
-                { 
-                    cantidadPanchos--;
-                    CambiarMonedas(10);
+                if (perfilJugador.cantidadPanchos > 0)
+                {
+                    perfilJugador.cantidadPanchos--;
+                    CambiarMonedas(perfilJugador.costoPanchosVenta);
+                    //CambiarMonedas(5);
                     //cantidadMonedas += 10;
                     //cantidadReputacion += 1;
-                    CambiarReputacion(1);
+                    CambiarReputacion(perfilJugador.ReputacionGanada);
 
                     EstadoComprador = true;
                 }
                 else
                 {
-                    CambiarReputacion(-1);
+                    CambiarReputacion(-perfilJugador.ReputacionPerdida);
                     //cantidadReputacion--;
                     EstadoComprador = false;
 }
                 break;
 
             case 2:
-                if (cantidadHelados > 0)
+                if (perfilJugador.cantidadHelados > 0)
                 {
-                    cantidadHelados--;
+                    perfilJugador.cantidadHelados--;
                     //cantidadMonedas += 20;
-                    CambiarMonedas(20);
-                    CambiarReputacion(2);
+                    CambiarMonedas(perfilJugador.costoHeladosVenta);
+                    CambiarReputacion(perfilJugador.ReputacionGanada);
                     //cantidadReputacion += 2;
                     EstadoComprador = true;
                 }
                 else
                 {
-                    CambiarReputacion(-1);
+                    CambiarReputacion(-perfilJugador.ReputacionPerdida);
                     //cantidadReputacion--;
                     EstadoComprador = false;
                 }
                 break;
 
             case 3:
-                if (cantidadHamb > 0)
+                if (perfilJugador.cantidadHamb > 0)
                 {
-                    cantidadHamb--;
+                    perfilJugador.cantidadHamb--;
                     //cantidadMonedas += 40;
-                    CambiarMonedas(40);
-                    CambiarReputacion(3);
+                    CambiarMonedas(perfilJugador.costoHambVenta);
+                    CambiarReputacion(perfilJugador.ReputacionGanada);
                     //cantidadReputacion += 3;
                     EstadoComprador = true;
                 }
                 else
                 {
                     //cantidadReputacion--;
-                    CambiarReputacion(-1);
+                    CambiarReputacion(-perfilJugador.ReputacionPerdida);
                     EstadoComprador = false;
                 }
                 break;

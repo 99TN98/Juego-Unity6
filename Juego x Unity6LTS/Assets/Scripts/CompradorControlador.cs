@@ -5,6 +5,8 @@ using Random = UnityEngine.Random;
 public class CompradorControlador : MonoBehaviour
 {
 
+    [SerializeField]
+    private PerfilJugador perfilJugador;
 
     [SerializeField] private Sprite spriteComprando;
     [SerializeField] private Sprite spriteSaliendo;
@@ -17,10 +19,11 @@ public class CompradorControlador : MonoBehaviour
     [SerializeField] private Sprite iconoEnojado;
     [SerializeField] private Sprite iconoFeliz;
     [SerializeField] private SpriteRenderer iconoRenderer;
-    [SerializeField]
+    /*[SerializeField]
     [Range(5, 100)]
 
     private int velocidad;
+    */
     private int Seleccion;
     private SpriteRenderer spriteUso;
     int Comprar;
@@ -31,6 +34,7 @@ public class CompradorControlador : MonoBehaviour
 
     void Start()
     {
+
         spriteUso = GetComponent<SpriteRenderer>();
         direccionDestino = (destino.position - transform.position).normalized;
         direccionOrigen = (transform.position - destino.position).normalized;
@@ -51,11 +55,11 @@ public class CompradorControlador : MonoBehaviour
         }
         if (puedoComprar)
         {
-            transform.Translate(direccionDestino * velocidad * Time.deltaTime);
+            transform.Translate(direccionDestino * perfilJugador.velocidad * Time.deltaTime);
         }
         else
         {
-            transform.Translate(direccionOrigen * velocidad * Time.deltaTime);
+            transform.Translate(direccionOrigen * perfilJugador.velocidad * Time.deltaTime);
         }
 
     }
