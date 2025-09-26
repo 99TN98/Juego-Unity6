@@ -29,6 +29,8 @@ public class TiendaManager : MonoBehaviour
     //Expansion 2.0
     [SerializeField] private List<Expansion> listaDeExpansiones; // Se ve en el Inspector
     private Queue<Expansion> expansiones = new Queue<Expansion>();
+    [SerializeField] private List<TextMeshProUGUI> textosCostosExpansiones;
+
     //Expansion
     [SerializeField] private GameObject Expansion1;
     [SerializeField] private GameObject BotonHelado;
@@ -51,11 +53,11 @@ public class TiendaManager : MonoBehaviour
         cantidadPanchos = 5;
         cantidadHelados = 0;
         cantidadHamb = 0;
-        cantidadMonedas = 250;
-
+        //cantidadMonedas = 250;
+        cantidadMonedas = 1250;
         maxReputacion = 100;
-        cantidadReputacion = 50;
-
+        //cantidadReputacion = 50;
+        cantidadReputacion = 90;
         NumeroSeleccion = 0;
         Expansion2.SetActive(false);
         Expansion3.SetActive(false);
@@ -68,6 +70,13 @@ public class TiendaManager : MonoBehaviour
         foreach (Expansion e in listaDeExpansiones)
         {
             expansiones.Enqueue(e);
+        }
+        for (int i = 0; i < listaDeExpansiones.Count; i++)
+        {
+            var expansion = listaDeExpansiones[i];
+            var texto = textosCostosExpansiones[i];
+
+            texto.text = $"x{expansion.CostoReputacion}     {expansion.CostoMonedas}x";
         }
 
     }
@@ -125,6 +134,7 @@ public class TiendaManager : MonoBehaviour
         }
 
         OnReputacionCambiada?.Invoke(cantidadReputacion);
+
     }
     private void CambiarMonedas(int cantidad)
     {
@@ -256,6 +266,8 @@ public class TiendaManager : MonoBehaviour
         TextoPancho.text = "x " + cantidadPanchos;
         TextoHelado.text = "x " + cantidadHelados;
         TextoHamb.text = "x " + cantidadHamb;
+        OnReputacionCambiada?.Invoke(cantidadReputacion);
+        OnMonedasCambiadas?.Invoke(cantidadMonedas);
     }
     public void CambiarSeleccion (int seleccion)
     {
