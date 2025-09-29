@@ -12,19 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ad527691ac126944919385440c29b78, type: 3}
   m_Name: PerfilJugador
   m_EditorClassIdentifier: 
-  cantidadMonedas: 250
-  cantidadReputacion: 48
-  cantidadPanchos: 0
+  cantidadMonedas: 376
+  cantidadReputacion: 75
+  cantidadPanchos: 5
   costoPanchosCompra: 2
-  costoPanchosVenta: 10
+  costoPanchosVenta: 20
   cantidadHelados: 0
   costoHeladosCompra: 3
-  costoHeladosVenta: 15
+  costoHeladosVenta: 35
   cantidadHamb: 0
   costoHambCompra: 5
-  costoHambVenta: 40
+  costoHambVenta: 60
   costosExpansionesMonedas: 64000000fa000000f4010000
   costosExpansionesReputacion: 280000003c00000050000000
-  ReputacionPerdida: 1
+  ReputacionPerdida: 2
   ReputacionGanada: 5
   velocidad: 10
