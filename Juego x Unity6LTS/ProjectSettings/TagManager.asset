@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - Destino1
+  - Tienda
   layers:
   - Default
   - TransparentFX

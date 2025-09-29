@@ -24,6 +24,7 @@ public class CompradorControlador : MonoBehaviour
 
     private int velocidad;
     */
+
     private int Seleccion;
     private SpriteRenderer spriteUso;
     int Comprar;
@@ -49,8 +50,10 @@ public class CompradorControlador : MonoBehaviour
     void Update()
     {
         if (tiendaManager != null && tiendaManager.PausaJuego)
-            return;
+        {
 
+            return;
+        }
         if (puedoComprar)
         {
             transform.Translate(direccionDestino * perfilJugador.velocidad * Time.deltaTime);
@@ -60,14 +63,6 @@ public class CompradorControlador : MonoBehaviour
             transform.Translate(direccionOrigen * perfilJugador.velocidad * Time.deltaTime);
         }
 
-        // Actualizar icono según estado en cada frame
-        if (tiendaManager != null)
-        {
-            if (tiendaManager.EstadoComprador)
-                iconoRenderer.sprite = iconoEnojado;
-            else
-                iconoRenderer.sprite = iconoFeliz;
-        }
     }
 
 
@@ -77,24 +72,39 @@ public class CompradorControlador : MonoBehaviour
         {
             return;
         }
-        puedoComprar = false;
-        int delayCompra = Random.Range(2, 4);
-        if (spriteUso != null && spriteComprando != null)
+        if (other.CompareTag("Tienda"))
         {
-            spriteUso.sprite = spriteComprando;
-        }
-        /*
-        if (tiendaManager != null && tiendaManager.EstadoComprador)
-        {
-            iconoRenderer.sprite = iconoEnojado;
-        }
-        else
+            puedoComprar = false;
+            int delayCompra = Random.Range(2, 4);
+            if (spriteUso != null && spriteComprando != null)
+            {
+                spriteUso.sprite = spriteComprando;
+            }
+            /*
+            if (tiendaManager != null && tiendaManager.EstadoComprador)
+            {
+                iconoRenderer.sprite = iconoEnojado;
+            }
+            else
+            {
+                iconoRenderer.sprite = iconoFeliz;
+            }
+            */
+
+            Invoke("ReiniciarCompra", delayCompra);
+        };
+    }
+
+    public void MostrarResultadoCompra(bool resultado)
+    {
+        if (resultado)
         {
             iconoRenderer.sprite = iconoFeliz;
         }
-        */
-
-            Invoke("ReiniciarCompra", delayCompra);
+        else
+        {
+            iconoRenderer.sprite = iconoEnojado;
+        }
     }
 
     private void ReiniciarCompra()
@@ -131,6 +141,7 @@ public class CompradorControlador : MonoBehaviour
         }
 
         puedoComprar = true;
+
     }
 
 

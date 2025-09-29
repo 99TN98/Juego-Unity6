@@ -63,7 +63,7 @@ public class CiudadanoController : MonoBehaviour
             escala.x = -Mathf.Abs(escala.x);
             transform.localScale = escala;
 
-            Debug.Log("Colisionó solo con objeto con tag Destino y se volteó");
+            Debug.Log("Colisionó solo con el objeto con tag");
         }
 
     }

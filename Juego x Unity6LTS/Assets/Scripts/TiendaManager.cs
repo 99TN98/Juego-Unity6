@@ -357,6 +357,11 @@ public class TiendaManager : MonoBehaviour
             PausaJuego = true;
         };*/
         ActualizarUI();
+        var comprador = other.GetComponent<CompradorControlador>();
+        if (comprador != null)
+        {
+            comprador.MostrarResultadoCompra(EstadoComprador);
+        }
     }
 
 
