@@ -49,10 +49,8 @@ public class CompradorControlador : MonoBehaviour
     void Update()
     {
         if (tiendaManager != null && tiendaManager.PausaJuego)
-        {
-
             return;
-        }
+
         if (puedoComprar)
         {
             transform.Translate(direccionDestino * perfilJugador.velocidad * Time.deltaTime);
@@ -62,6 +60,14 @@ public class CompradorControlador : MonoBehaviour
             transform.Translate(direccionOrigen * perfilJugador.velocidad * Time.deltaTime);
         }
 
+        // Actualizar icono según estado en cada frame
+        if (tiendaManager != null)
+        {
+            if (tiendaManager.EstadoComprador)
+                iconoRenderer.sprite = iconoEnojado;
+            else
+                iconoRenderer.sprite = iconoFeliz;
+        }
     }
 
 
