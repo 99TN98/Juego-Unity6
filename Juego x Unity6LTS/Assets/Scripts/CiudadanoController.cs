@@ -43,8 +43,8 @@ public class CiudadanoController : MonoBehaviour
                 Vector3 escala = transform.localScale;
                 escala.x = Mathf.Abs(escala.x); // escala positiva para volver a mirar al destino
                 transform.localScale = escala;
+                gameObject.SetActive(false);
 
-                
             }
         }
     }
