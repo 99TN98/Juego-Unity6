@@ -4,7 +4,8 @@ using UnityEngine.Rendering.Universal;
 
 public class GeneradorDiaNoche : MonoBehaviour
 {
-    [SerializeField] private Light2D luzGlobal;  
+    [SerializeField] private Light2D luzGlobal;
+    [SerializeField] private GameObject luzObjetos;
     [SerializeField] private Color nocheColor;
     [SerializeField] private Color diaColor;
     [SerializeField] private float segundos;
@@ -49,7 +50,16 @@ public class GeneradorDiaNoche : MonoBehaviour
             
             esDeNoche = !esDeNoche;
 
-           
+            if (esDeNoche)
+            {
+                luzObjetos.SetActive(true);  
+            }
+            else
+            {
+                luzObjetos.SetActive(false);  
+            }
+
+
             yield return new WaitForSeconds(segundos);
         }
     }
