@@ -27,7 +27,7 @@ public class CompradorControlador : MonoBehaviour
 
     private int Seleccion;
     private SpriteRenderer spriteUso;
-    int Comprar;
+    private int Comprar;
     private Vector3 direccionDestino;
     private Vector3 direccionOrigen;
 
@@ -41,9 +41,27 @@ public class CompradorControlador : MonoBehaviour
         direccionOrigen = (transform.position - destino.position).normalized;
         puedoComprar = true;
         Comprar = Random.Range(1, 4);
+        ActualizarIcono();
         if (spriteUso != null && spriteSaliendo != null)
         {
             spriteUso.sprite = spriteSaliendo;
+        }
+    }
+
+
+    private void ActualizarIcono()
+    {
+        switch (Comprar)
+        {
+            case 1:
+                iconoRenderer.sprite = iconoPancho;
+                break;
+            case 2:
+                iconoRenderer.sprite = iconoHelado;
+                break;
+            case 3:
+                iconoRenderer.sprite = iconoHamb;
+                break;
         }
     }
 
@@ -51,20 +69,29 @@ public class CompradorControlador : MonoBehaviour
     {
         if (tiendaManager != null && tiendaManager.PausaJuego)
         {
-
             return;
         }
+
+        float distancia = Vector3.Distance(transform.position, destino.position);
+
+      
         if (puedoComprar)
         {
             transform.Translate(direccionDestino * perfilJugador.velocidad * Time.deltaTime);
         }
         else
         {
+            
             transform.Translate(direccionOrigen * perfilJugador.velocidad * Time.deltaTime);
+
+            
+            if (distancia <= 0.1f) 
+            {
+
+                gameObject.SetActive(false);
+            }
         }
-
     }
-
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -74,26 +101,29 @@ public class CompradorControlador : MonoBehaviour
         }
         if (other.CompareTag("Tienda"))
         {
+            Debug.Log("Comprador ha llegado a la tienda");
             puedoComprar = false;
+
             int delayCompra = Random.Range(2, 4);
             if (spriteUso != null && spriteComprando != null)
             {
                 spriteUso.sprite = spriteComprando;
             }
-            /*
-            if (tiendaManager != null && tiendaManager.EstadoComprador)
-            {
-                iconoRenderer.sprite = iconoEnojado;
-            }
-            else
-            {
-                iconoRenderer.sprite = iconoFeliz;
-            }
-            */
-
             Invoke("ReiniciarCompra", delayCompra);
         };
     }
+
+    /*public void MostrarResultadoCompra(bool resultado)
+    {
+        if (resultado)
+        {
+            iconoRenderer.sprite = iconoFeliz;
+        }
+        else
+        {
+            iconoRenderer.sprite = iconoEnojado;
+        }
+    }*/
 
     public void MostrarResultadoCompra(bool resultado)
     {
@@ -107,13 +137,25 @@ public class CompradorControlador : MonoBehaviour
         }
     }
 
+    private void ResetIcono()
+    {
+        
+        iconoRenderer.sprite = spriteSaliendo;
+    }
+
+    public int ObtenerComprar()
+    {
+        return Comprar;
+    }
+
     private void ReiniciarCompra()
     {
         if (tiendaManager != null && tiendaManager.PausaJuego)
         {
             return;
         }
-        Comprar = Random.Range(1, 4);
+        Comprar = Random.Range(1, 4); 
+
         if (tiendaManager != null)
         {
             tiendaManager.RecibirCompra(Comprar);
@@ -141,8 +183,7 @@ public class CompradorControlador : MonoBehaviour
         }
 
         puedoComprar = true;
-
     }
-
-
 }
+
+

@@ -285,8 +285,70 @@ public class TiendaManager : MonoBehaviour
     {
         Comprar = tipo;
     }
-
+    // Cambiar el método de compra en TiendaManager para no interferir entre compradores
     private void OnTriggerEnter2D(Collider2D other)
+    {
+        var comprador = other.GetComponent<CompradorControlador>();
+        if (comprador != null)
+        {
+            bool compraExitosa = false;
+
+            switch (comprador.ObtenerComprar()) // Usamos la variable Comprar de CompradorControlador, no la global
+            {
+                case 1:
+                    if (perfilJugador.cantidadPanchos > 0)
+                    {
+                        perfilJugador.cantidadPanchos--;
+                        CambiarMonedas(perfilJugador.costoPanchosVenta);
+                        CambiarReputacion(perfilJugador.ReputacionGanada);
+                        compraExitosa = true;
+                    }
+                    else
+                    {
+                        CambiarReputacion(-perfilJugador.ReputacionPerdida);
+                        compraExitosa = false;
+                    }
+                    break;
+
+                case 2:
+                    if (perfilJugador.cantidadHelados > 0)
+                    {
+                        perfilJugador.cantidadHelados--;
+                        CambiarMonedas(perfilJugador.costoHeladosVenta);
+                        CambiarReputacion(perfilJugador.ReputacionGanada);
+                        compraExitosa = true;
+                    }
+                    else
+                    {
+                        CambiarReputacion(-perfilJugador.ReputacionPerdida);
+                        compraExitosa = false;
+                    }
+                    break;
+
+                case 3:
+                    if (perfilJugador.cantidadHamb > 0)
+                    {
+                        perfilJugador.cantidadHamb--;
+                        CambiarMonedas(perfilJugador.costoHambVenta);
+                        CambiarReputacion(perfilJugador.ReputacionGanada);
+                        compraExitosa = true;
+                    }
+                    else
+                    {
+                        CambiarReputacion(-perfilJugador.ReputacionPerdida);
+                        compraExitosa = false;
+                    }
+                    break;
+            }
+
+            // Actualiza la UI
+            ActualizarUI();
+            comprador.MostrarResultadoCompra(compraExitosa);
+        }
+    }
+
+
+    /*private void OnTriggerEnter2D(Collider2D other)
     {
         switch (Comprar)
         {
@@ -345,24 +407,24 @@ public class TiendaManager : MonoBehaviour
                     EstadoComprador = false;
                 }
                 break;
-        }
-        /*
-        if (cantidadReputacion >= maxReputacion)
-        {
-            cantidadReputacion = 100;
-        };
-        if (cantidadReputacion <= 0)
-        {
-            Derrota.SetActive(true);
-            PausaJuego = true;
-        };*/
-        ActualizarUI();
-        var comprador = other.GetComponent<CompradorControlador>();
-        if (comprador != null)
-        {
-            comprador.MostrarResultadoCompra(EstadoComprador);
-        }
+        }*/
+    /*
+    if (cantidadReputacion >= maxReputacion)
+    {
+        cantidadReputacion = 100;
+    };
+    if (cantidadReputacion <= 0)
+    {
+        Derrota.SetActive(true);
+        PausaJuego = true;
+    };
+    ActualizarUI();
+    var comprador = other.GetComponent<CompradorControlador>();
+    if (comprador != null)
+    {
+        comprador.MostrarResultadoCompra(EstadoComprador);
     }
+}*/
 
 
 }
