@@ -67,6 +67,11 @@ public class CompradorControlador : MonoBehaviour
 
     void Update()
     {
+        if (spriteUso == null || perfilJugador == null || destino == null)
+        {
+            Debug.LogError("Faltan referencias en CompradorControlador.");
+            return;
+        }
         if (tiendaManager != null && tiendaManager.PausaJuego)
         {
             return;
