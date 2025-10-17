@@ -19,6 +19,7 @@ public class CompradorControlador : MonoBehaviour
     [SerializeField] private Sprite iconoEnojado;
     [SerializeField] private Sprite iconoFeliz;
     [SerializeField] private SpriteRenderer iconoRenderer;
+    [SerializeField] private ParticleSystem sistemaDeParticulas;
     /*[SerializeField]
     [Range(5, 100)]
 
@@ -46,6 +47,11 @@ public class CompradorControlador : MonoBehaviour
         {
             spriteUso.sprite = spriteSaliendo;
         }
+        if (sistemaDeParticulas != null)
+        {
+            sistemaDeParticulas.Stop(); 
+            sistemaDeParticulas.Clear(); 
+        }
     }
 
 
@@ -67,11 +73,6 @@ public class CompradorControlador : MonoBehaviour
 
     void Update()
     {
-        if (spriteUso == null || perfilJugador == null || destino == null)
-        {
-            Debug.LogError("Faltan referencias en CompradorControlador.");
-            return;
-        }
         if (tiendaManager != null && tiendaManager.PausaJuego)
         {
             return;
@@ -135,6 +136,7 @@ public class CompradorControlador : MonoBehaviour
         if (resultado)
         {
             iconoRenderer.sprite = iconoFeliz;
+            sistemaDeParticulas.gameObject.SetActive(true);
         }
         else
         {
@@ -186,7 +188,7 @@ public class CompradorControlador : MonoBehaviour
         {
             spriteUso.sprite = spriteSaliendo;
         }
-
+        sistemaDeParticulas.gameObject.SetActive(false);
         puedoComprar = true;
     }
 }
