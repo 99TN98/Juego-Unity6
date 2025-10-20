@@ -265,7 +265,7 @@ public class TiendaManager : MonoBehaviour
                 if (perfilJugador.cantidadMonedas >= perfilJugador.costoHambCompra) 
                 {
                     perfilJugador.cantidadHamb++;
-                    CambiarMonedas(perfilJugador.costoHambCompra);
+                    CambiarMonedas(-perfilJugador.costoHambCompra);
                     // cantidadMonedas -= 5;
                     ActualizarUI(); 
                 }

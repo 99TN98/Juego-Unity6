@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ad527691ac126944919385440c29b78, type: 3}
   m_Name: PerfilJugador
   m_EditorClassIdentifier: 
-  cantidadMonedas: 250
+  cantidadMonedas: 150
   cantidadReputacion: 50
   cantidadPanchos: 10
   costoPanchosCompra: 2
