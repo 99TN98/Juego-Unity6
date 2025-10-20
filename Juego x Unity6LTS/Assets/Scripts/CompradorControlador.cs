@@ -20,6 +20,7 @@ public class CompradorControlador : MonoBehaviour
     [SerializeField] private Sprite iconoFeliz;
     [SerializeField] private SpriteRenderer iconoRenderer;
     [SerializeField] private ParticleSystem sistemaDeParticulas;
+
     /*[SerializeField]
     [Range(5, 100)]
 

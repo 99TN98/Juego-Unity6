@@ -40,6 +40,8 @@ public class TiendaManager : MonoBehaviour
     [SerializeField] private GameObject Expansion3;
     [SerializeField] private GameObject Puesto2;
     [SerializeField] private GameObject Puesto3;
+
+
     //Colisiones
     int Comprar = 1;
     public bool EstadoComprador = true;
@@ -47,11 +49,18 @@ public class TiendaManager : MonoBehaviour
     [SerializeField] private GameObject Victoria;
     [SerializeField] private GameObject Derrota;
     public bool PausaJuego = false;
-    
+
+    //Sonidos
+    [SerializeField] private AudioClip ComprarVFX;
+    [SerializeField] private AudioClip VictoriaVFX;
+    [SerializeField] private AudioClip DerrotaVFX;
+    private AudioSource miAudioSource;
+
+
 
     void Start()
     {
-
+        miAudioSource = GetComponent<AudioSource>();
         //cantidadPanchos = 5;
         //cantidadHelados = 0;
         //cantidadHamb = 0;
@@ -114,6 +123,7 @@ public class TiendaManager : MonoBehaviour
                 if (Victoria != null)
                 {
                     Victoria.SetActive(true);
+                    miAudioSource.PlayOneShot(VictoriaVFX);
                     PausaJuego = true;
                 }
             }
@@ -133,6 +143,7 @@ public class TiendaManager : MonoBehaviour
         if (perfilJugador.cantidadReputacion <= 0)
         {
             perfilJugador.cantidadReputacion = 0;
+            miAudioSource.PlayOneShot(DerrotaVFX);
             Derrota.SetActive(true);
             PausaJuego = true;
         }
@@ -340,6 +351,7 @@ public class TiendaManager : MonoBehaviour
                     }
                     break;
             }
+            miAudioSource.PlayOneShot(ComprarVFX);
 
             // Actualiza la UI
             ActualizarUI();
